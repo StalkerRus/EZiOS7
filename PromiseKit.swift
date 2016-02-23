@@ -397,6 +397,10 @@ import Dispatch
  - Returns: A new promise that resolves once all the provided promises resolve.
 */
 public func join<T>(promises: Promise<T>...) -> Promise<[T]> {
+    return join(promises)
+}
+
+public func join<T>(promises: [Promise<T>]) -> Promise<[T]> {
     var countdown = promises.count
     let barrier = dispatch_queue_create("org.promisekit.barrier.join", DISPATCH_QUEUE_CONCURRENT)
     var rejected = false
@@ -422,6 +426,7 @@ public func join<T>(promises: Promise<T>...) -> Promise<[T]> {
         }
     }
 }
+
 import Foundation
 
 public enum JSONError: ErrorType {
